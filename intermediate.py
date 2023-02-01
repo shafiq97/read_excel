@@ -31,10 +31,16 @@ for i in range(data_array.shape[1]):
     statistics[i, 5] = stats.skew(data_array[:, i])
 
 # Print the summary statistics
-print(statistics)
+# print(statistics)
 
 # Detect outliers using the Z-score method
 for i in range(data_array.shape[1]):
     z = np.abs(stats.zscore(data_array[:, i]))
     outliers = np.where(z > 3)
     print(f"Outliers in column {i}: {outliers}")
+
+# Print the summary statistics in a table format
+print('Column\tMinimum\tMaximum\tMean\tMedian\tStandard Deviation')
+for i in range(data_array.shape[1]):
+    print(
+        f"{i}\t{statistics[i, 0]:.2f}\t{statistics[i, 1]:.2f}\t{statistics[i, 2]:.2f}\t{statistics[i, 3]:.2f}\t{statistics[i, 4]:.2f}")
