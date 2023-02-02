@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import scipy.stats as stats
+import matplotlib.pyplot as plt
 
 # Task 1
 # Read the xlsx file into a DataFrame
@@ -44,3 +45,19 @@ print('Column\tMinimum\tMaximum\tMean\tMedian\tStandard Deviation')
 for i in range(data_array.shape[1]):
     print(
         f"{i}\t{statistics[i, 0]:.2f}\t{statistics[i, 1]:.2f}\t{statistics[i, 2]:.2f}\t{statistics[i, 3]:.2f}\t{statistics[i, 4]:.2f}")
+
+# for i in range(data_array.shape[1]):
+#     plt.hist(data_array[:, i], edgecolor='black')
+#     plt.title(f"Column {i}")
+#     plt.xlabel("Value")
+#     plt.ylabel("Count")
+#     plt.show()
+
+marks = data_array[:, 0]
+
+# Plot a histogram of the marks
+plt.hist(marks, edgecolor='black')
+plt.title("Marks")
+plt.xlabel("Mark")
+plt.ylabel("Number of Students")
+plt.show()
