@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 # Task 1
 # Read the xlsx file into a DataFrame
 df = pd.read_excel('final_grades.xlsx')
-
+column_names = df.columns
+print(column_names)
 # Convert the DataFrame to a numpy array
 data_array = np.array(df)
 
@@ -41,10 +42,10 @@ for i in range(data_array.shape[1]):
     print(f"Outliers in column {i}: {outliers}")
 
 # Print the summary statistics in a table format
-print('Column\tMinimum\tMaximum\tMean\tMedian\tStandard Deviation')
-for i in range(data_array.shape[1]):
+print('Column\t\tMinimum\tMaximum\tMean\tMedian\tStandard Deviation')
+for i in range(1, data_array.shape[1]):
     print(
-        f"{i}\t{statistics[i, 0]:.2f}\t{statistics[i, 1]:.2f}\t{statistics[i, 2]:.2f}\t{statistics[i, 3]:.2f}\t{statistics[i, 4]:.2f}")
+        f"{column_names[i]}\t{statistics[i, 0]:.2f}\t{statistics[i, 1]:.2f}\t{statistics[i, 2]:.2f}\t{statistics[i, 3]:.2f}\t{statistics[i, 4]:.2f}")
 
 # for i in range(data_array.shape[1]):
 #     plt.hist(data_array[:, i], edgecolor='black')
@@ -53,11 +54,27 @@ for i in range(data_array.shape[1]):
 #     plt.ylabel("Count")
 #     plt.show()
 
-marks = data_array[:, 0]
+marks = data_array[1:, 17]
 
 # Plot a histogram of the marks
 plt.hist(marks, edgecolor='black')
 plt.title("Marks")
 plt.xlabel("Mark")
 plt.ylabel("Number of Students")
+plt.show()
+
+# Define the grade boundaries
+grade_boundaries = [0, 40, 50, 60, 70, 80]
+grade_labels = ['Fail', 'E', 'D', 'C', 'B', 'A']
+
+# Determine the grade for each mark
+grades = np.zeros_like(marks, dtype=int)
+for i, boundary in enumerate(grade_boundaries):
+    grades[marks >= boundary] = i
+
+
+# Plot a pie chart of the grades
+unique_grades, counts = np.unique(grades, return_counts=True)
+plt.pie(counts, labels=[f"{grade_labels[g]} ({counts[i]} students, {grade_boundaries[g]}-{grade_boundaries[g+1]})" for i, g in enumerate(unique_grades[:-1])] + [f"{grade_labels[unique_grades[-1]]} ({counts[-1]} students, {grade_boundaries[-1]}-100)"])
+plt.title("Grades")
 plt.show()
