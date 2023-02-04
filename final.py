@@ -64,8 +64,8 @@ plt.ylabel("Number of Students")
 plt.show()
 
 # Define the grade boundaries
-grade_boundaries = [0, 40, 50, 60, 70, 80]
-grade_labels = ['Fail', 'E', 'D', 'C', 'B', 'A']
+grade_boundaries = [0, 50, 60, 70, 80]
+grade_labels = ['Fail', 'D', 'C', 'B', 'A']
 
 # Determine the grade for each mark
 grades = np.zeros_like(marks, dtype=int)
@@ -75,6 +75,6 @@ for i, boundary in enumerate(grade_boundaries):
 
 # Plot a pie chart of the grades
 unique_grades, counts = np.unique(grades, return_counts=True)
-plt.pie(counts, labels=[f"{grade_labels[g]} ({counts[i]} students, {grade_boundaries[g]}-{grade_boundaries[g+1]})" for i, g in enumerate(unique_grades[:-1])] + [f"{grade_labels[unique_grades[-1]]} ({counts[-1]} students, {grade_boundaries[-1]}-100)"])
+plt.pie(counts, labels=[f"{grade_labels[g]} ({counts[i]} students, {grade_boundaries[g]}-{grade_boundaries[g+1]-1})" for i, g in enumerate(unique_grades[:-1])] + [f"{grade_labels[unique_grades[-1]]} ({counts[-1]} students, {grade_boundaries[-1]}-100)"])
 plt.title("Grades")
 plt.show()
